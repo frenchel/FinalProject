@@ -32,6 +32,18 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 />
+
+            <TextView
+                android:id="@+id/mDatePayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="Due on: "
+                android:textColor="@android:color/darker_gray"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                />
+
             <TextView
                 android:id="@+id/mTitle"
                 android:text="Title"

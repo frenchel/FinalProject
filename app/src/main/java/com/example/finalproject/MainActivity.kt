@@ -47,9 +47,14 @@ class MainActivity : AppCompatActivity() {
         val userName = v.findViewById<EditText>(R.id.userName)
         val userNo = v.findViewById<EditText>(R.id.userNoAmount)
         val etDate = v.findViewById<TextInputEditText>(R.id.et_date)
+        val etDueDate = v.findViewById<TextInputEditText>(R.id.et_dueDate)
 
         etDate.setOnClickListener {
             showDatePicker(etDate)
+        }
+
+        etDueDate.setOnClickListener {
+            showDatePicker(etDueDate)
         }
 
         val addDialog = AlertDialog.Builder(this)
@@ -58,9 +63,10 @@ class MainActivity : AppCompatActivity() {
         addDialog.setPositiveButton("Ok") { dialog, _ ->
             val names = userName.text.toString()
             val number = userNo.text.toString()
-            val date = etDate.text.toString()
+            val date = etDate.text?.toString()
+            val dueDate = etDueDate.text?.toString()
 
-            userList.add(UserData("Name: $names", "Amount Borrowed : $number", "Date Borrowed: $date"))
+            userList.add(UserData("Name: $names", "Amount Borrowed : $number", "Date Borrowed: $date", "Date Borrowed: $dueDate"))
             userAdapter.notifyDataSetChanged()
             Toast.makeText(this, "Adding User Information Success", Toast.LENGTH_SHORT).show()
             dialog.dismiss()

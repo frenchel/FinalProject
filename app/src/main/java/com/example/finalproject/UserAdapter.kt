@@ -18,12 +18,14 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
         var name: TextView
         var mbNum: TextView
         var dateBorrowed: TextView
+        var datePayment: TextView
         var mMenus: ImageView
 
         init {
             name = v.findViewById<TextView>(R.id.mTitle)
             mbNum = v.findViewById<TextView>(R.id.mSubTitle)
             dateBorrowed = v.findViewById<TextView>(R.id.mDateBorrowed)
+            datePayment = v.findViewById<TextView>(R.id.mDatePayment)
             mMenus = v.findViewById(R.id.mMenus)
             mMenus.setOnClickListener { popupMenus() }
         }
@@ -59,11 +61,13 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
             val name = v.findViewById<EditText>(R.id.userName)
             val number = v.findViewById<EditText>(R.id.userNoAmount)
             val date = v.findViewById<TextInputEditText>(R.id.et_date)
+            val dueDate = v.findViewById<TextInputEditText>(R.id.et_dueDate)
 
             // Set the values from UserData to the dialog
             name.setText(userData.userName)
             number.setText(userData.userMb)
             date.setText(userData.dateBorrowed)
+            dueDate.setText(userData.datePayment)
 
             AlertDialog.Builder(c)
                 .setView(v)
@@ -71,11 +75,13 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
                     val newName = name.text.toString()
                     val newNumber = number.text.toString()
                     val newDate = date.text.toString()
+                    val newDueDate = dueDate.text.toString()
 
                     // Update the original UserData
                     userData.userName = newName
                     userData.userMb = newNumber
                     userData.dateBorrowed = newDate
+                    userData.datePayment = newDueDate
 
                     notifyDataSetChanged()
                     Toast.makeText(c, "User Information is Edited", Toast.LENGTH_SHORT).show()
@@ -119,6 +125,8 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
         val newList = userList[position]
         holder.name.text = newList.userName
         holder.mbNum.text = newList.userMb
+        holder.dateBorrowed.text = newList.dateBorrowed
+        holder.datePayment.text = newList.datePayment
     }
 
     override fun getItemCount(): Int {
