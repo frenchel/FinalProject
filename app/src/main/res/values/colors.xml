@@ -2,4 +2,19 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="beige">#FBF3E4</color>
+
+    <color name="pink">#E986C1</color>
+    <color name="darkpurple">#6472D2</color>
+    <color name="lightpurple">#9CA3E2</color>
+    <color name="yellow">#F7E6CA</color>
+
+    <color name="red">#FF495C</color>
+    <color name="green">#3DDC97</color>
+    <color name="nav">#EFA7D2</color>
+
+    <color name="gray">#AEB6BF</color>
+    <color name="progress_gray">#D6DBDF</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>
