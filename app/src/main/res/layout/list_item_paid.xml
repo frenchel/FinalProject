@@ -61,7 +61,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_borrowed"
+                android:src="@drawable/ic_returned"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -123,6 +123,17 @@
                 android:text="Date Payment"
                 android:textColor="@color/pink"
                 android:textSize="16.5sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_bold"
+                android:text="PAID"
+                android:textAlignment="textEnd"
+                android:textColor="@color/green"
+                android:textSize="17sp"
                 />
         </LinearLayout>
     </LinearLayout>

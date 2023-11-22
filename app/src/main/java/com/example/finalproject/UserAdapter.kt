@@ -41,6 +41,10 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
                         showEditDialog(position)
                         true
                     }
+                    R.id.paid -> {
+
+                        true
+                    }
                     R.id.delete -> {
                         showDeleteConfirmationDialog(position)
                         true

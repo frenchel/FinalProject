@@ -1,6 +1,7 @@
 package com.example.finalproject
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -43,6 +45,13 @@ class MainActivity : AppCompatActivity() {
 
         /** Set Dialog */
         addsBtn.setOnClickListener { showNewDebtDialog() }
+
+        val archiveImageView = findViewById<ImageView>(R.id.ic_archive)
+
+        archiveImageView.setOnClickListener {
+            val intent = Intent(this@MainActivity, Archive::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun showNewDebtDialog() {
