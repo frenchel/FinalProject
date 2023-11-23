@@ -16,7 +16,8 @@ import java.util.Locale
 
 class UserAdapter(val c:Context,
                   val dbHelper: DatabaseHandler,
-                  val userList:ArrayList<UserData>):
+                  val userList:ArrayList<UserData>,
+                  val updateTotalAmountCallback: () -> Unit):
     RecyclerView.Adapter<UserAdapter.UserViewHolder>()
 {
 
@@ -113,6 +114,7 @@ class UserAdapter(val c:Context,
                 dbHelper.updateTransaction(userData)
 
                 notifyDataSetChanged()
+                updateTotalAmountCallback.invoke()
                 Toast.makeText(c, "User Information is Edited", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
@@ -134,6 +136,7 @@ class UserAdapter(val c:Context,
                     dbHelper.deleteTransaction(userData.userId)
                     userList.remove(userData)
                     notifyDataSetChanged()
+                    updateTotalAmountCallback.invoke()
                     Toast.makeText(c, "Deleted this Information", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }

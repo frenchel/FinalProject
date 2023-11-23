@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userList: ArrayList<UserData>
     private lateinit var userAdapter: UserAdapter
     private lateinit var dbHelper: DatabaseHandler
+    private lateinit var totalAmountTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +44,9 @@ class MainActivity : AppCompatActivity() {
         addsBtn = findViewById(R.id.addingBtn) //FINDING ID OF THE SET
         recv = findViewById(R.id.mRecycler)
 
-        userAdapter = UserAdapter(this, dbHelper, userList) //ADAPTER
+        totalAmountTextView = findViewById(R.id.overviewTotalAmount)
+
+        userAdapter = UserAdapter(this, dbHelper, userList) { updateTotalAmount() } //ADAPTER
 
         recv.layoutManager = LinearLayoutManager(this) //ADAPTER OF RECYCLER VIEW
         recv.adapter = userAdapter
@@ -57,12 +60,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        updateTotalAmount()
         val totalTransactionsTextView = findViewById<TextView>(R.id.overviewTotalTransactions)
         totalTransactionsTextView.text = "${userList.size}"
         userAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 super.onChanged()
                 totalTransactionsTextView.text = "${userList.size}"
+                updateTotalAmount()
             }
         })
     }
@@ -111,16 +116,9 @@ class MainActivity : AppCompatActivity() {
 
             if (success != -1L) {
                 userData.userId = success.toInt()
-                userList.add(
-                    UserData(
-                        0,
-                        names,
-                        String.format("₱%.2f", number.toDouble()),
-                        date ?: "",
-                        dueDate ?: ""
-                    )
-                )
+                userList.add(userData)
                 userAdapter.notifyDataSetChanged()
+                updateTotalAmount()
                 Toast.makeText(this, "Adding User Information Success", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             } else {
@@ -141,6 +139,11 @@ class MainActivity : AppCompatActivity() {
         userList.clear()
         userList.addAll(transactions)
         return transactions
+    }
+
+    private fun updateTotalAmount() {
+        val totalAmount = userList.sumByDouble { it.userMb.toDoubleOrNull() ?: 0.0 }
+        totalAmountTextView.text = "₱ ${String.format("%.2f", totalAmount)}"
     }
 
     /*DATE PICKER*/
