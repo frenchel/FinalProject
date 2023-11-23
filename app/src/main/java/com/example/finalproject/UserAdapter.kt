@@ -94,9 +94,10 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
             val saveButton = v.findViewById<Button>(R.id.saveAddDebt)
             val cancelButton = v.findViewById<Button>(R.id.cancelAddDebt)
 
-            val dialog = AlertDialog.Builder(c)
+            val dialogBuilder = AlertDialog.Builder(c)
                 .setView(v)
-                .create()
+
+            val dialog = dialogBuilder.create()
 
             saveButton.setOnClickListener {
                 val newName = name.text.toString()
@@ -121,6 +122,7 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
 
             dialog.show()
         }
+
 
         /*private fun showEditDialog(userData: UserData) {
             val v = LayoutInflater.from(c).inflate(R.layout.add_item, null)
