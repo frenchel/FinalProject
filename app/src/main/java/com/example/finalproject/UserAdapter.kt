@@ -14,7 +14,11 @@ import com.google.android.material.textfield.TextInputEditText
 import java.util.Date
 import java.util.Locale
 
-class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.Adapter<UserAdapter.UserViewHolder>()
+class UserAdapter(val c:Context,
+                  val dbHelper: DatabaseHandler,
+                  val userList:ArrayList<UserData>,
+                  val updateTotalAmountCallback: () -> Unit):
+    RecyclerView.Adapter<UserAdapter.UserViewHolder>()
 {
 
     inner class UserViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
@@ -22,7 +26,7 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
         var mbNum: TextView
         var dateBorrowed: TextView
         var datePayment: TextView
-        lateinit var tvOverdue: TextView
+        var tvOverdue: TextView
         var mMenus: ImageView
 
         init {
@@ -79,25 +83,21 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
             date.setText(userData.dateBorrowed)
             dueDate.setText(userData.datePayment)
 
-            val etDate = v.findViewById<TextInputEditText>(R.id.et_date)
-            val etDueDate = v.findViewById<TextInputEditText>(R.id.et_dueDate)
-
             /*SHOWING DATE PICKER*/
-            etDate.setOnClickListener {
-                showDatePicker(etDate)
+            date.setOnClickListener {
+                showDatePicker(date)
             }
 
-            etDueDate.setOnClickListener {
-                showDatePicker(etDueDate)
+            dueDate.setOnClickListener {
+                showDatePicker(dueDate)
             }
 
             val saveButton = v.findViewById<Button>(R.id.saveAddDebt)
             val cancelButton = v.findViewById<Button>(R.id.cancelAddDebt)
 
-            val dialogBuilder = AlertDialog.Builder(c)
+            val dialog = AlertDialog.Builder(c)
                 .setView(v)
-
-            val dialog = dialogBuilder.create()
+                .create()
 
             saveButton.setOnClickListener {
                 val newName = name.text.toString()
@@ -111,7 +111,10 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
                 userData.dateBorrowed = newDate
                 userData.datePayment = newDueDate
 
+                dbHelper.updateTransaction(userData)
+
                 notifyDataSetChanged()
+                updateTotalAmountCallback.invoke()
                 Toast.makeText(c, "User Information is Edited", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
@@ -123,53 +126,17 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
             dialog.show()
         }
 
-
-        /*private fun showEditDialog(userData: UserData) {
-            val v = LayoutInflater.from(c).inflate(R.layout.add_item, null)
-            val name = v.findViewById<EditText>(R.id.userName)
-            val number = v.findViewById<EditText>(R.id.userNoAmount)
-            val date = v.findViewById<TextInputEditText>(R.id.et_date)
-            val dueDate = v.findViewById<TextInputEditText>(R.id.et_dueDate)
-
-            // Set the values from UserData to the dialog
-            name.setText(userData.userName)
-            number.setText(userData.userMb)
-            date.setText(userData.dateBorrowed)
-            dueDate.setText(userData.datePayment)
-
-            AlertDialog.Builder(c)
-                .setView(v)
-                .setPositiveButton("Ok") { dialog, _ ->
-                    val newName = name.text.toString()
-                    val newNumber = number.text.toString()
-                    val newDate = date.text.toString()
-                    val newDueDate = dueDate.text.toString()
-
-                    // Update the original UserData
-                    userData.userName = newName
-                    userData.userMb = newNumber
-                    userData.dateBorrowed = newDate
-                    userData.datePayment = newDueDate
-
-                    notifyDataSetChanged()
-                    Toast.makeText(c, "User Information is Edited", Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-                }
-                .setNegativeButton("Cancel") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .create()
-                .show()
-        }*/
-
         private fun showDeleteConfirmationDialog(userData: UserData) {
             AlertDialog.Builder(c)
                 .setTitle("Delete")
                 .setIcon(R.drawable.ic_warning)
                 .setMessage("Are you sure you want to delete this information?")
                 .setPositiveButton("Yes") { dialog, _ ->
+
+                    dbHelper.deleteTransaction(userData.userId)
                     userList.remove(userData)
                     notifyDataSetChanged()
+                    updateTotalAmountCallback.invoke()
                     Toast.makeText(c, "Deleted this Information", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }
@@ -210,6 +177,7 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
     override fun getItemCount(): Int {
         return  userList.size
     }
+
 
     /*DATE PICKER*/
     private fun showDatePicker(etDate: TextInputEditText) {

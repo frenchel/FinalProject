@@ -109,8 +109,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/overviewTotalExpense"
-                        android:text="&#x20B1; 45,550.00"
+                        android:id="@+id/overviewTotalAmount"
+                        android:text="&#x20B1;"
                         android:textSize="20sp"
                         android:textColor="@color/white"
                         android:fontFamily="@font/inter_bold"
@@ -139,8 +139,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/overviewTotalIncome"
-                        android:text="5"
+                        android:id="@+id/overviewTotalTransactions"
+                        android:text=""
                         android:textSize="20sp"
                         android:fontFamily="@font/inter_bold"
                         android:textColor="@color/white"
