@@ -124,6 +124,18 @@
                 android:textColor="@color/pink"
                 android:textSize="16.5sp"
                 />
+
+            <TextView
+                android:id="@+id/tvOverdue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_bold"
+                android:text=""
+                android:textAlignment="textEnd"
+                android:textColor="@color/red"
+                android:textSize="17sp"
+                tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
