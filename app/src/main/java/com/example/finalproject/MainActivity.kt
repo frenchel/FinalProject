@@ -10,6 +10,7 @@ import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -55,6 +56,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, Archive::class.java)
             startActivity(intent)
         }
+
+        val totalTransactionsTextView = findViewById<TextView>(R.id.overviewTotalTransactions)
+        totalTransactionsTextView.text = "${userList.size}"
+        userAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                super.onChanged()
+                totalTransactionsTextView.text = "${userList.size}"
+            }
+        })
     }
 
     /*PLUS BUTTON FOR ADDING NEW DEBT RECORD*/
