@@ -80,16 +80,13 @@ class UserAdapter(val c:Context,val dbHelper: DatabaseHandler,val userList:Array
             date.setText(userData.dateBorrowed)
             dueDate.setText(userData.datePayment)
 
-            val etDate = v.findViewById<TextInputEditText>(R.id.et_date)
-            val etDueDate = v.findViewById<TextInputEditText>(R.id.et_dueDate)
-
             /*SHOWING DATE PICKER*/
-            etDate.setOnClickListener {
-                showDatePicker(etDate)
+            date.setOnClickListener {
+                showDatePicker(date)
             }
 
-            etDueDate.setOnClickListener {
-                showDatePicker(etDueDate)
+            dueDate.setOnClickListener {
+                showDatePicker(dueDate)
             }
 
             val saveButton = v.findViewById<Button>(R.id.saveAddDebt)
