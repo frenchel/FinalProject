@@ -17,7 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var addsBtn: FloatingActionButton
@@ -29,31 +32,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /** Set List */
+        /*SET LIST*/
         userList = ArrayList()
 
-        /** Set find Id */
-        addsBtn = findViewById(R.id.addingBtn)
+        addsBtn = findViewById(R.id.addingBtn) //FINDING ID OF THE SET
         recv = findViewById(R.id.mRecycler)
 
-        /** Set Adapter */
-        userAdapter = UserAdapter(this, userList)
+        userAdapter = UserAdapter(this, userList) //ADAPTER
 
-        /** Set Recycler view Adapter */
-        recv.layoutManager = LinearLayoutManager(this)
+        recv.layoutManager = LinearLayoutManager(this) //ADAPTER OF RECYCLER VIEW
         recv.adapter = userAdapter
 
-        /** Set Dialog */
-        addsBtn.setOnClickListener { showNewDebtDialog() }
+        addsBtn.setOnClickListener { showNewDebtDialog() } //DIALOG
 
+        /*BUTTON FOR GOING TO ARCHIVE ACTIVITY*/
         val archiveImageView = findViewById<ImageView>(R.id.ic_archive)
-
         archiveImageView.setOnClickListener {
             val intent = Intent(this@MainActivity, Archive::class.java)
             startActivity(intent)
         }
     }
 
+    /*PLUS BUTTON FOR ADDING NEW DEBT RECORD*/
     private fun showNewDebtDialog() {
         val inflater = LayoutInflater.from(this)
         val view = inflater.inflate(R.layout.add_item, null)
@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         val etDate = view.findViewById<TextInputEditText>(R.id.et_date)
         val etDueDate = view.findViewById<TextInputEditText>(R.id.et_dueDate)
 
+        /*SHOWING DATE PICKER*/
         etDate.setOnClickListener {
             showDatePicker(etDate)
         }
@@ -71,6 +72,7 @@ class MainActivity : AppCompatActivity() {
             showDatePicker(etDueDate)
         }
 
+        /*SAVE AND CANCEL BUTTON IN THE DIALOG*/
         val btnAddDebt = view.findViewById<Button>(R.id.saveAddDebt)
         val btnCancelDebt = view.findViewById<Button>(R.id.cancelAddDebt)
 
@@ -87,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             val date = etDate.text?.toString()
             val dueDate = etDueDate.text?.toString()
 
-            userList.add(UserData("$names", "$number", "$date", "$dueDate"))
+            userList.add(UserData("$names", String.format("₱%.2f", number.toDouble()), "$date", "$dueDate"))
             userAdapter.notifyDataSetChanged()
             Toast.makeText(this, "Adding User Information Success", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
@@ -101,7 +103,56 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    /*DATE PICKER*/
     private fun showDatePicker(etDate: TextInputEditText) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            R.style.datePicker,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(selectedYear, selectedMonth, selectedDay)
+                val dateFormat = SimpleDateFormat("MMM. dd, yyyy", Locale.getDefault())
+                val formattedDate = dateFormat.format(selectedDate.time)
+                etDate.setText(formattedDate)
+            },
+            year,
+            month,
+            day
+        )
+
+        datePickerDialog.window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
+        datePickerDialog.show()
+    }
+
+
+
+
+    /*private fun showDatePicker(etDate: TextInputEditText) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            ContextThemeWrapper(this, R.style.datePicker),
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val formattedDate = "$selectedYear-${selectedMonth + 1}-$selectedDay"
+                etDate.setText(formattedDate)
+            },
+            year,
+            month,
+            day
+        )
+
+        datePickerDialog.show()
+    }*/
+
+    /*private fun showDatePicker(etDate: TextInputEditText) {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
@@ -120,7 +171,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         datePickerDialog.show()
-    }
+    }*/
 }
 
 

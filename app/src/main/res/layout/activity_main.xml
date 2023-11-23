@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
-                android:text="Overview"
+                android:text="Active Transactions"
                 android:textSize="25sp"
                 android:fontFamily="@font/inter_semibold"
                 />
@@ -151,7 +151,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <!--<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -159,10 +159,11 @@
                 android:text="Active Transactions"
                 android:textSize="25sp"
                 android:fontFamily="@font/inter_semibold"
-                />
+                />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mRecycler"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>
