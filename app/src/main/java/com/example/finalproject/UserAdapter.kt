@@ -9,7 +9,8 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 
-class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.Adapter<UserAdapter.UserViewHolder>()
+class UserAdapter(val c:Context,val dbHelper: DatabaseHandler,val userList:ArrayList<UserData>):
+    RecyclerView.Adapter<UserAdapter.UserViewHolder>()
 {
 
     inner class UserViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
@@ -90,6 +91,8 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
                 userData.dateBorrowed = newDate
                 userData.datePayment = newDueDate
 
+                dbHelper.updateTransaction(userData)
+
                 notifyDataSetChanged()
                 Toast.makeText(c, "User Information is Edited", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
@@ -146,6 +149,8 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>):RecyclerView.A
                 .setIcon(R.drawable.ic_warning)
                 .setMessage("Are you sure you want to delete this information?")
                 .setPositiveButton("Yes") { dialog, _ ->
+
+                    dbHelper.deleteTransaction(userData.userId)
                     userList.remove(userData)
                     notifyDataSetChanged()
                     Toast.makeText(c, "Deleted this Information", Toast.LENGTH_SHORT).show()

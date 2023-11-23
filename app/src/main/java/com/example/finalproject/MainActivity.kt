@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recv: RecyclerView
     private lateinit var userList: ArrayList<UserData>
     private lateinit var userAdapter: UserAdapter
+    private lateinit var dbHelper: DatabaseHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +35,14 @@ class MainActivity : AppCompatActivity() {
 
         /*SET LIST*/
         userList = ArrayList()
+        dbHelper = DatabaseHandler(this)
+
+        userList.addAll(dbHelper.viewTransaction())
 
         addsBtn = findViewById(R.id.addingBtn) //FINDING ID OF THE SET
         recv = findViewById(R.id.mRecycler)
 
-        userAdapter = UserAdapter(this, userList) //ADAPTER
+        userAdapter = UserAdapter(this, dbHelper, userList) //ADAPTER
 
         recv.layoutManager = LinearLayoutManager(this) //ADAPTER OF RECYCLER VIEW
         recv.adapter = userAdapter
@@ -89,10 +93,29 @@ class MainActivity : AppCompatActivity() {
             val date = etDate.text?.toString()
             val dueDate = etDueDate.text?.toString()
 
-            userList.add(UserData("$names", String.format("₱%.2f", number.toDouble()), "$date", "$dueDate"))
-            userAdapter.notifyDataSetChanged()
-            Toast.makeText(this, "Adding User Information Success", Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
+            val userId = 0
+
+            val userData = UserData(userId, names, number, date ?: "", dueDate ?: "")
+
+            val success = dbHelper.addTransaction(userData)
+
+            if (success != -1L) {
+                userData.userId = success.toInt()
+                userList.add(
+                    UserData(
+                        0,
+                        names,
+                        String.format("₱%.2f", number.toDouble()),
+                        date ?: "",
+                        dueDate ?: ""
+                    )
+                )
+                userAdapter.notifyDataSetChanged()
+                Toast.makeText(this, "Adding User Information Success", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            } else {
+                Toast.makeText(this, "Error Adding User Information", Toast.LENGTH_SHORT).show()
+            }
         }
 
         btnCancelDebt.setOnClickListener {
@@ -101,6 +124,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         dialog.show()
+    }
+
+    private fun viewTransactions(): ArrayList<UserData> {
+        val transactions = dbHelper.viewTransaction()
+        userList.clear()
+        userList.addAll(transactions)
+        return transactions
     }
 
     /*DATE PICKER*/
@@ -128,7 +158,7 @@ class MainActivity : AppCompatActivity() {
         datePickerDialog.window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
         datePickerDialog.show()
     }
-
+}
 
 
 
@@ -172,7 +202,7 @@ class MainActivity : AppCompatActivity() {
 
         datePickerDialog.show()
     }*/
-}
+
 
 
 /*
