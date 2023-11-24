@@ -3,11 +3,14 @@ package com.example.finalproject
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
@@ -83,6 +86,13 @@ class UserAdapter(val c:Context,
             date.setText(userData.dateBorrowed)
             dueDate.setText(userData.datePayment)
 
+            val dialogBuilder = AlertDialog.Builder(c)
+            dialogBuilder.setView(v)
+
+            val dialog = dialogBuilder.create()
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
             /*SHOWING DATE PICKER*/
             date.setOnClickListener {
                 showDatePicker(date)
@@ -95,9 +105,9 @@ class UserAdapter(val c:Context,
             val saveButton = v.findViewById<Button>(R.id.saveAddDebt)
             val cancelButton = v.findViewById<Button>(R.id.cancelAddDebt)
 
-            val dialog = AlertDialog.Builder(c)
-                .setView(v)
-                .create()
+//            val dialog = AlertDialog.Builder(c)
+//                .setView(v)
+//                .create()
 
             saveButton.setOnClickListener {
                 val newName = name.text.toString()
