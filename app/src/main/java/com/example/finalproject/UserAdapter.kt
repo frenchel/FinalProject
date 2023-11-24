@@ -55,7 +55,7 @@ class UserAdapter(val c:Context,
                         true
                     }
                     R.id.paid -> {
-
+                        handlePaidButtonClick(position)
                         true
                     }
                     R.id.delete -> {
@@ -134,6 +134,14 @@ class UserAdapter(val c:Context,
             }
 
             dialog.show()
+        }
+
+        private fun handlePaidButtonClick(userData: UserData) {
+            dbHelper.archiveTransaction(userData.userId)
+            userList.remove(userData)
+            notifyDataSetChanged()
+            updateTotalAmountCallback.invoke()
+            Toast.makeText(c, "Marked as Paid", Toast.LENGTH_SHORT).show()
         }
 
         private fun showDeleteConfirmationDialog(userData: UserData) {
