@@ -170,8 +170,6 @@ class MainActivity : AppCompatActivity() {
         datePickerDialog.window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
         datePickerDialog.show()
     }
-}
-
 
     /*WARNING DIALOG*/
     private fun showRequiredFieldsDialog() {
@@ -191,8 +189,8 @@ class MainActivity : AppCompatActivity() {
             dialog.dismiss()
         }, 1500)
     }
-
 }
+
 
 /*
 package com.example.finalproject
