@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         userList = ArrayList()
         dbHelper = DatabaseHandler(this)
 
-        userList.addAll(dbHelper.viewTransaction())
+        userList.addAll(dbHelper.viewNonArchivedTransaction())
 
         addsBtn = findViewById(R.id.addingBtn) //FINDING ID OF THE SET
         recv = findViewById(R.id.mRecycler)
@@ -134,13 +134,6 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun viewTransactions(): ArrayList<UserData> {
-        val transactions = dbHelper.viewTransaction()
-        userList.clear()
-        userList.addAll(transactions)
-        return transactions
-    }
-
     private fun updateTotalAmount() {
         val totalAmount = userList.sumByDouble { it.userMb.toDoubleOrNull() ?: 0.0 }
         totalAmountTextView.text = "₱ ${String.format("%.2f", totalAmount)}"
@@ -172,6 +165,13 @@ class MainActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 }
+
+//private fun viewTransactions(): ArrayList<UserData> {
+//    val transactions = dbHelper.viewTransaction()
+//    userList.clear()
+//    userList.addAll(transactions)
+//    return transactions
+//}
 
 
 
