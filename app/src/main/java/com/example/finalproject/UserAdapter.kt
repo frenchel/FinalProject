@@ -3,23 +3,25 @@ package com.example.finalproject
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
-import android.icu.text.SimpleDateFormat
-import android.icu.util.Calendar
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
-import java.util.Date
-import java.util.Locale
+import java.text.SimpleDateFormat
+import java.util.*
 
-class UserAdapter(val c:Context,
-                  val dbHelper: DatabaseHandler,
-                  val userList:ArrayList<UserData>,
-                  val updateTotalAmountCallback: () -> Unit):
-    RecyclerView.Adapter<UserAdapter.UserViewHolder>()
-{
+class UserAdapter(
+    val c: Context,
+    val dbHelper: DatabaseHandler,
+    val userList: ArrayList<UserData>,
+    val updateTotalAmountCallback: () -> Unit
+) :
+    RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     inner class UserViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
         var name: TextView
@@ -30,14 +32,13 @@ class UserAdapter(val c:Context,
         var mMenus: ImageView
 
         init {
-            name = v.findViewById<TextView>(R.id.mTitle)
-            mbNum = v.findViewById<TextView>(R.id.mSubTitle)
-            dateBorrowed = v.findViewById<TextView>(R.id.mDateBorrowed)
-            datePayment = v.findViewById<TextView>(R.id.mDatePayment)
+            name = v.findViewById(R.id.mTitle)
+            mbNum = v.findViewById(R.id.mSubTitle)
+            dateBorrowed = v.findViewById(R.id.mDateBorrowed)
+            datePayment = v.findViewById(R.id.mDatePayment)
             tvOverdue = v.findViewById(R.id.tvOverdue)
             mMenus = v.findViewById(R.id.mMenus)
             mMenus.setOnClickListener { popupMenus() }
-
         }
 
         private fun popupMenus() {
@@ -52,7 +53,7 @@ class UserAdapter(val c:Context,
                         true
                     }
                     R.id.paid -> {
-
+                        // Implement paid action if needed
                         true
                     }
                     R.id.delete -> {
@@ -77,11 +78,18 @@ class UserAdapter(val c:Context,
             val date = v.findViewById<TextInputEditText>(R.id.et_date)
             val dueDate = v.findViewById<TextInputEditText>(R.id.et_dueDate)
 
-            // Set the values from UserData to the dialog
+            /*SET VALUES FROM USER DATA TO DIALOG*/
             name.setText(userData.userName)
             number.setText(userData.userMb)
             date.setText(userData.dateBorrowed)
             dueDate.setText(userData.datePayment)
+
+            val dialogBuilder = AlertDialog.Builder(c)
+            dialogBuilder.setView(v)
+
+            val dialog = dialogBuilder.create()
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
             /*SHOWING DATE PICKER*/
             date.setOnClickListener {
@@ -95,17 +103,13 @@ class UserAdapter(val c:Context,
             val saveButton = v.findViewById<Button>(R.id.saveAddDebt)
             val cancelButton = v.findViewById<Button>(R.id.cancelAddDebt)
 
-            val dialog = AlertDialog.Builder(c)
-                .setView(v)
-                .create()
-
             saveButton.setOnClickListener {
                 val newName = name.text.toString()
                 val newNumber = number.text.toString()
                 val newDate = date.text.toString()
                 val newDueDate = dueDate.text.toString()
 
-                // Update the original UserData
+                /*UPDATE THE ORIGINAL USER DATA*/
                 userData.userName = newName
                 userData.userMb = newNumber
                 userData.dateBorrowed = newDate
@@ -132,7 +136,6 @@ class UserAdapter(val c:Context,
                 .setIcon(R.drawable.ic_warning)
                 .setMessage("Are you sure you want to delete this information?")
                 .setPositiveButton("Yes") { dialog, _ ->
-
                     dbHelper.deleteTransaction(userData.userId)
                     userList.remove(userData)
                     notifyDataSetChanged()
@@ -150,7 +153,7 @@ class UserAdapter(val c:Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val v  = inflater.inflate(R.layout.list_item,parent,false)
+        val v = inflater.inflate(R.layout.list_item, parent, false)
         return UserViewHolder(v)
     }
 
@@ -161,38 +164,36 @@ class UserAdapter(val c:Context,
         holder.dateBorrowed.text = newList.dateBorrowed
         holder.datePayment.text = newList.datePayment
 
-        // Compare current date with the due date
+        /*COMPARE CURRENT DATA WITH THE DUE DATE*/
         val currentDate = Calendar.getInstance().time
         val dateFormat = SimpleDateFormat("MMM. dd, yyyy", Locale.getDefault())
         val dueDate = dateFormat.parse(newList.datePayment)
 
         if (currentDate.after(dueDate)) {
             holder.tvOverdue.text = "OVERDUE"
-            // You can customize the appearance or perform additional actions for overdue items
         } else {
             holder.tvOverdue.text = ""
         }
     }
 
     override fun getItemCount(): Int {
-        return  userList.size
+        return userList.size
     }
-
 
     /*DATE PICKER*/
     private fun showDatePicker(etDate: TextInputEditText) {
-        val calendar = java.util.Calendar.getInstance()
-        val year = calendar.get(java.util.Calendar.YEAR)
-        val month = calendar.get(java.util.Calendar.MONTH)
-        val day = calendar.get(java.util.Calendar.DAY_OF_MONTH)
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(
-            c,  // Use the 'c' parameter as the Context
+            c,
             R.style.datePicker,
             { _, selectedYear, selectedMonth, selectedDay ->
-                val selectedDate = java.util.Calendar.getInstance()
+                val selectedDate = Calendar.getInstance()
                 selectedDate.set(selectedYear, selectedMonth, selectedDay)
-                val dateFormat = java.text.SimpleDateFormat("MMM. dd, yyyy", Locale.getDefault())
+                val dateFormat = SimpleDateFormat("MMM. dd, yyyy", Locale.getDefault())
                 val formattedDate = dateFormat.format(selectedDate.time)
                 etDate.setText(formattedDate)
             },
