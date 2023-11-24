@@ -19,19 +19,18 @@ class Archive : AppCompatActivity() {
         setContentView(R.layout.activity_archive)
 
         val toHome = findViewById<ImageView>(R.id.backToHome)
-        mRecyclerArchive = findViewById(R.id.mRecyclerArchive) // Make sure the ID matches your layout
+        mRecyclerArchive = findViewById(R.id.mRecyclerArchive)
 
         toHome.setOnClickListener {
             val intent = Intent(this@Archive, MainActivity::class.java)
             startActivity(intent)
         }
 
-        // Initialize database and archived records list
         dbHelper = DatabaseHandler(this)
         archivedList = dbHelper.viewArchivedTransaction()
 
-        // Initialize and set up the adapter for the archived records
-        archiveAdapter = UserAdapter(this, dbHelper, archivedList) { /* Any additional callbacks if needed */ }
+        // Use the UserAdapter with isArchiveAdapter parameter set to true
+        archiveAdapter = UserAdapter(this, dbHelper, archivedList, true) { /* Any additional callbacks if needed */ }
         mRecyclerArchive.layoutManager = LinearLayoutManager(this)
         mRecyclerArchive.adapter = archiveAdapter
     }

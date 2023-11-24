@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         totalAmountTextView = findViewById(R.id.overviewTotalAmount)
 
-        userAdapter = UserAdapter(this, dbHelper, userList) { updateTotalAmount() } //ADAPTER
+        userAdapter = UserAdapter(this, dbHelper, userList, false) { updateTotalAmount() } //ADAPTER
 
         recv.layoutManager = LinearLayoutManager(this) //ADAPTER OF RECYCLER VIEW
         recv.adapter = userAdapter

@@ -52,7 +52,7 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
 
     @SuppressLint("Range")
     fun viewNonArchivedTransaction(): ArrayList<UserData> {
-        val userList = ArrayList<UserData>()
+        val unarchivedList = ArrayList<UserData>()
         val selectQuery = "SELECT * FROM $TABLE_TRANSACTIONS WHERE $KEY_ARCHIVED = 0"
         val db = this.readableDatabase
         val cursor = db.rawQuery(selectQuery, null)
@@ -66,12 +66,12 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
                 val datePayment = cursor.getString(cursor.getColumnIndex(KEY_RETURNED))
 
                 val userData = UserData(userId, userName, userMb, dateBorrowed, datePayment)
-                userList.add(userData)
+                unarchivedList.add(userData)
             } while (cursor.moveToNext())
         }
 
         cursor.close()
-        return userList
+        return unarchivedList
     }
 
     @SuppressLint("Range")

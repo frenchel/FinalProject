@@ -20,6 +20,7 @@ import java.util.Locale
 class UserAdapter(val c:Context,
                   val dbHelper: DatabaseHandler,
                   val userList:ArrayList<UserData>,
+                  val isArchiveAdapter: Boolean = false,
                   val updateTotalAmountCallback: () -> Unit):
     RecyclerView.Adapter<UserAdapter.UserViewHolder>()
 {
@@ -29,7 +30,7 @@ class UserAdapter(val c:Context,
         var mbNum: TextView
         var dateBorrowed: TextView
         var datePayment: TextView
-        var tvOverdue: TextView
+        var tvStatus: TextView
         var mMenus: ImageView
 
         init {
@@ -37,10 +38,14 @@ class UserAdapter(val c:Context,
             mbNum = v.findViewById<TextView>(R.id.mSubTitle)
             dateBorrowed = v.findViewById<TextView>(R.id.mDateBorrowed)
             datePayment = v.findViewById<TextView>(R.id.mDatePayment)
-            tvOverdue = v.findViewById(R.id.tvOverdue)
             mMenus = v.findViewById(R.id.mMenus)
             mMenus.setOnClickListener { popupMenus() }
 
+            tvStatus = if (!isArchiveAdapter) {
+                v.findViewById(R.id.tvOverdue)
+            } else {
+                v.findViewById(R.id.tvPaid)
+            }
         }
 
         private fun popupMenus() {
@@ -167,9 +172,10 @@ class UserAdapter(val c:Context,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val v  = inflater.inflate(R.layout.list_item,parent,false)
-        return UserViewHolder(v)
+            val layoutResourceId = if (isArchiveAdapter) R.layout.list_item_paid else R.layout.list_item
+            val inflater = LayoutInflater.from(parent.context)
+            val v = inflater.inflate(layoutResourceId, parent, false)
+            return UserViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
@@ -184,11 +190,13 @@ class UserAdapter(val c:Context,
         val dateFormat = SimpleDateFormat("MMM. dd, yyyy", Locale.getDefault())
         val dueDate = dateFormat.parse(newList.datePayment)
 
-        if (currentDate.after(dueDate)) {
-            holder.tvOverdue.text = "OVERDUE"
+        if (isArchiveAdapter) {
+            holder.tvStatus.text = "PAID"
             // You can customize the appearance or perform additional actions for overdue items
+        } else if (currentDate.after(dueDate)) {
+            holder.tvStatus.text = "OVERDUE"
         } else {
-            holder.tvOverdue.text = ""
+            holder.tvStatus.text = ""
         }
     }
 
