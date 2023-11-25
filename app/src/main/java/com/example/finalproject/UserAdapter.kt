@@ -52,7 +52,8 @@ class UserAdapter(val c:Context,
             val position = userList[adapterPosition]
 
             val popupMenus = PopupMenu(c, mMenus)
-            popupMenus.inflate(R.menu.show_menu)
+            val menuResource = if (isArchiveAdapter) R.menu.show_menu_archive else R.menu.show_menu
+            popupMenus.inflate(menuResource)
             popupMenus.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.editText -> {

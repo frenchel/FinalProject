@@ -128,6 +128,7 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         return success
     }
 
+}
 
 //    @SuppressLint("Range")
 //    fun viewTransaction(): ArrayList<UserData> {
@@ -152,4 +153,3 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
 //        cursor.close()
 //        return userList
 //    }
-}
