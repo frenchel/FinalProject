@@ -146,6 +146,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textColor="@color/darkpurple"
                     android:text="Already have an account? Sign in"
                     />
             </LinearLayout>

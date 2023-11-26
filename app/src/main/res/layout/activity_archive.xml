@@ -21,6 +21,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
+            android:layout_marginRight="5dp"
             android:src="@drawable/round_arrow_back_ios_24"
             />
 
