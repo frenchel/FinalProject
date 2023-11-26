@@ -1,5 +1,6 @@
 package com.example.finalproject
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
@@ -32,9 +33,24 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dbHelper: DatabaseHandler
     private lateinit var totalAmountTextView: TextView
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        /*BUTTON FOR GOING TO ARCHIVE ACTIVITY*/
+        val toProfileActivity = findViewById<ImageView>(R.id.userProfilePic)
+        toProfileActivity.setOnClickListener {
+            val intent = Intent(this, Profile::class.java)
+            startActivity(intent)
+        }
+
+        /*BUTTON FOR GOING TO ARCHIVE ACTIVITY*/
+        val archiveImageView = findViewById<TextView>(R.id.ic_archive)
+        archiveImageView.setOnClickListener {
+            val intent = Intent(this@MainActivity, Archive::class.java)
+            startActivity(intent)
+        }
 
         /*SET LIST*/
         userList = ArrayList()
@@ -53,13 +69,6 @@ class MainActivity : AppCompatActivity() {
         recv.adapter = userAdapter
 
         addsBtn.setOnClickListener { showNewDebtDialog() } //DIALOG
-
-        /*BUTTON FOR GOING TO ARCHIVE ACTIVITY*/
-        val archiveImageView = findViewById<ImageView>(R.id.ic_archive)
-        archiveImageView.setOnClickListener {
-            val intent = Intent(this@MainActivity, Archive::class.java)
-            startActivity(intent)
-        }
 
         updateTotalAmount()
         val totalTransactionsTextView = findViewById<TextView>(R.id.overviewTotalTransactions)
