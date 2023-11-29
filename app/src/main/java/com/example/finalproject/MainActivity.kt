@@ -56,6 +56,24 @@ class MainActivity : AppCompatActivity() {
         userList = ArrayList()
         dbHelper = DatabaseHandler(this)
 
+        val loggedInUserEmail = dbHelper.getLoggedInUserEmail()
+
+        if (loggedInUserEmail != null) {
+            val loggedInUser = dbHelper.getAccountByEmail(loggedInUserEmail)
+
+            if (loggedInUser != null) {
+                // Display the first name and last name in the TextView
+                val userNameTextView = findViewById<TextView>(R.id.userName)
+                userNameTextView.text = "${loggedInUser.firstname} ${loggedInUser.lastname}"
+            } else {
+                // Handle the case when the user is not found
+                Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            // Handle the case when no user is logged in
+            Toast.makeText(this, "No user logged in", Toast.LENGTH_SHORT).show()
+        }
+
         userList.addAll(dbHelper.viewNonArchivedTransaction())
 
         addsBtn = findViewById(R.id.addingBtn) //FINDING ID OF THE SET
