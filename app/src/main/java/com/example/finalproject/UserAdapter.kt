@@ -206,7 +206,6 @@ class UserAdapter(val c:Context,
         return  userList.size
     }
 
-
     /*DATE PICKER*/
     private fun showDatePicker(etDate: TextInputEditText) {
         val calendar = java.util.Calendar.getInstance()

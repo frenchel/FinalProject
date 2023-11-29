@@ -2,11 +2,11 @@ package com.example.finalproject
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.content.Context
 
-class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DatabaseHandler(private val context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         private val DATABASE_VERSION = 1
@@ -26,6 +26,9 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         private val KEY_RETURNED = "returned"
         private val KEY_ARCHIVED = "archived"
         private val KEY_ACCOUNT_EMAIL_FK = "account_email_fk"
+
+        private const val PREFS_NAME = "MyPrefs"
+        private const val KEY_LOGGED_IN_USER_EMAIL = "loggedInUserEmail"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -56,6 +59,20 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         onCreate(db)
     }
 
+    // Add this method to set the currently logged-in user's email to SharedPreferences
+    fun setLoggedInUserEmail(email: String) {
+        val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(KEY_LOGGED_IN_USER_EMAIL, email)
+        editor.apply()
+    }
+
+    // Add this method to get the currently logged-in user's email from SharedPreferences
+    fun getLoggedInUserEmail(): String? {
+        val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return sharedPreferences.getString(KEY_LOGGED_IN_USER_EMAIL, null)
+    }
+
     fun addTransaction(data: UserData): Long{
         val db = this.writableDatabase
         val values = ContentValues().apply {
@@ -63,6 +80,14 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_AMOUNT, data.userMb)
             put(KEY_BORROWED, data.dateBorrowed)
             put(KEY_RETURNED, data.datePayment)
+
+            val loggedInUserEmail = getLoggedInUserEmail()
+
+            if (loggedInUserEmail != null) {
+                put(KEY_ACCOUNT_EMAIL_FK, loggedInUserEmail)
+            } else {
+                throw IllegalStateException("No user logged in. Cannot add transaction.")
+            }
         }
         //insert these values papunta sa database
         val success = db.insert(TABLE_TRANSACTIONS, null, values)
@@ -73,8 +98,10 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
     @SuppressLint("Range")
     fun viewNonArchivedTransaction(): ArrayList<UserData> {
         val unarchivedList = ArrayList<UserData>()
-        val selectQuery = "SELECT * FROM $TABLE_TRANSACTIONS WHERE $KEY_ARCHIVED = 0"
-        val db = this.readableDatabase
+        val loggedInUserEmail = getLoggedInUserEmail()
+        if (loggedInUserEmail != null) {
+            val selectQuery ="SELECT * FROM $TABLE_TRANSACTIONS WHERE $KEY_ARCHIVED = 0 AND $KEY_ACCOUNT_EMAIL_FK = '$loggedInUserEmail'"
+            val db = this.readableDatabase
         val cursor = db.rawQuery(selectQuery, null)
 
         if (cursor.moveToFirst()) {
@@ -89,15 +116,20 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
                 unarchivedList.add(userData)
             } while (cursor.moveToNext())
         }
-
         cursor.close()
+        } else {
+            throw IllegalStateException("No user logged in. Cannot fetch transactions.")
+        }
+
         return unarchivedList
     }
 
     @SuppressLint("Range")
     fun viewArchivedTransaction(): ArrayList<UserData> {
         val userList = ArrayList<UserData>()
-        val selectQuery = "SELECT * FROM $TABLE_TRANSACTIONS WHERE $KEY_ARCHIVED = 1"
+        val loggedInUserEmail = getLoggedInUserEmail()
+        if (loggedInUserEmail != null) {
+        val selectQuery = "SELECT * FROM $TABLE_TRANSACTIONS WHERE $KEY_ARCHIVED = 1 AND $KEY_ACCOUNT_EMAIL_FK = '$loggedInUserEmail'"
         val db = this.readableDatabase
         val cursor = db.rawQuery(selectQuery, null)
 
@@ -115,6 +147,9 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         }
 
         cursor.close()
+        } else {
+            throw IllegalStateException("No user logged in. Cannot fetch transactions.")
+        }
         return userList
     }
 
@@ -194,7 +229,6 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         queryCursor.close()
         db.close()
 
-        // No account found with the provided email
         return null
     }
     @SuppressLint("Range")
@@ -235,6 +269,5 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         cursor.close()
         return tableExists
     }
-
 
 }

@@ -28,6 +28,7 @@ class Login : AppCompatActivity() {
                 val account = dbHelper.getAccountByEmailAndPassword(email, password)
 
                 if (account != null) {
+                    dbHelper.setLoggedInUserEmail(account.email)
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
