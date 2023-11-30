@@ -84,6 +84,18 @@
                 app:layout_constraintVertical_bias="0.555" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="&#x20B1;"
+                android:textColor="@color/darkyellow"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/mSubTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.541" />
+
+            <TextView
                 android:id="@+id/mSubTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

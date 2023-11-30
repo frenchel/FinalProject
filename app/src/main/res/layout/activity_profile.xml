@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semibold"
             android:textColor="@color/white"
-            android:text="Account"
+            android:text="Profile"
             android:textSize="30sp" />
 
 
@@ -50,11 +50,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="28dp">
+            android:padding="28dp"
+            tools:ignore="ExtraText">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Account Details"
+                android:textSize="22sp"/>
+
+            <!--<TextView
                 android:id="@+id/userFirstName"
-                android:layout_width="274dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/inter_semibold"
@@ -78,13 +87,13 @@
                 android:fontFamily="@font/inter_medium"
                 android:textColor="@color/pink"
                 android:text="janvincentdyogi@gmail.com"
-                android:textSize="18sp" />
+                android:textSize="18sp" />-->
 
-            <View
+            <!--<View
                 android:layout_width="wrap_content"
-                android:layout_height="50dp" />
+                android:layout_height="50dp" />-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!--<androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/constraintChangePassword">
@@ -114,10 +123,52 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--ACCOUNT NAME-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="Account Name"
+                android:textColor="@color/pink"
+                android:textSize="16sp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                app:startIconDrawable="@drawable/round_face_6_24"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAccountName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
+                    android:hint="Account Name"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
 
             <!--EMAIL-->
-            <!--<com.google.android.material.textfield.TextInputLayout
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="Registered Email"
+                android:textColor="@color/pink"
+                android:textSize="16sp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -129,11 +180,63 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress" />
-            </com.google.android.material.textfield.TextInputLayout>-->
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
+                    android:hint="Registered Email"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
 
             <!--PASSWORD-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Password"
+                    android:textColor="@color/pink"
+                    android:textSize="16sp"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/constraintChangePassword">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit"
+                        android:textColor="@color/darkyellow"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.115"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:src="@drawable/round_edit_note_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.941"
+                        app:layout_constraintStart_toEndOf="@+id/textView"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -154,6 +257,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:inputType="none"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:editable="false"
                         android:text="User Password Here" /> <!-- Set the initial text if needed -->
                 </com.google.android.material.textfield.TextInputLayout>

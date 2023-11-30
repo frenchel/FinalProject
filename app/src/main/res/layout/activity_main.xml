@@ -12,7 +12,7 @@
     <!--HELLO, NAME AND PROFILE PICTURE-->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="175dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="-20dp"
         android:backgroundTint="@color/darkpurple"
@@ -28,12 +28,12 @@
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"/>
+                android:layout_height="30dp"/>
 
             <!--HELLO AND NAME-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="100dp">
 
                 <TextView
                     android:id="@+id/userName"
@@ -42,40 +42,55 @@
                     android:fontFamily="@font/inter_bold"
                     android:text="Juan Dela Cruz"
                     android:textColor="@color/white"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/userProfilePic"
+                    app:layout_constraintEnd_toStartOf="@+id/appLogo"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="0.408" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hello, "
                     android:textColor="@color/white"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/userProfilePic"
+                    app:layout_constraintEnd_toStartOf="@+id/appLogo"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
+                <TextView
+                    android:id="@+id/tvViewAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="View Account"
+                    android:textColor="#F3BAD9"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/userName"
+                    app:layout_constraintVertical_bias="0.0"
+                    />
+
                 <ImageView
-                    android:id="@+id/userProfilePic"
+                    android:id="@+id/appLogo"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:background="@drawable/bg_circle"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/cute_dog"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.993"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -85,7 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:layout_alignParentTop="true"
         android:backgroundTint="@color/white"
         app:cardCornerRadius="20dp">
@@ -149,7 +164,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="250dp"
         android:layout_marginHorizontal="20dp"
         android:orientation="vertical"
         >

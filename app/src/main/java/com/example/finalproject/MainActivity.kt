@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         /*BUTTON FOR GOING TO PROFILE ACTIVITY*/
-        val toProfileActivity = findViewById<ImageView>(R.id.userProfilePic)
+        val toProfileActivity = findViewById<TextView>(R.id.tvViewAccount)
         toProfileActivity.setOnClickListener {
             val intent = Intent(this, Profile::class.java)
             startActivity(intent)

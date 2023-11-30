@@ -5,8 +5,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginHorizontal="30dp">
+    android:layout_marginHorizontal="30dp"
+    >
 
     <androidx.cardview.widget.CardView
         android:layout_width="350dp"
@@ -30,10 +30,10 @@
                 android:layout_weight="1"
                 android:layout_marginBottom="15dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="New Debt"
+                android:text="Who Owes Me?"
                 android:textColor="@color/darkpurple"
                 android:textAlignment="center"
-                android:textSize="35sp" />
+                android:textSize="30sp" />
 
             <!--TEXTFIELD - PERSON-->
             <com.google.android.material.textfield.TextInputLayout
@@ -69,7 +69,7 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--DATE RETURN-->
+            <!-- DATE RETURN -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_date_view"
                 android:layout_width="match_parent"
@@ -84,10 +84,11 @@
                     android:layout_height="wrap_content"
                     android:editable="false"
                     android:inputType="none"
-                    />
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--EXPECTED DATE RETURN-->
+            <!-- EXPECTED DATE RETURN -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_dueDate_view"
                 android:layout_width="match_parent"
@@ -102,8 +103,10 @@
                     android:layout_height="wrap_content"
                     android:editable="false"
                     android:inputType="none"
-                    />
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <View
                 android:layout_width="wrap_content"
