@@ -57,18 +57,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/inter_medium"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Jan Vincent"
-                android:textSize="25sp" />
+                android:textSize="28sp" />
 
             <TextView
                 android:id="@+id/userLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/inter_medium"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Dyogi"
-                android:textSize="25sp" />
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/userEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/inter_medium"
+                android:textColor="@color/pink"
+                android:text="janvincentdyogi@gmail.com"
+                android:textSize="18sp" />
 
             <View
                 android:layout_width="wrap_content"
@@ -87,7 +97,7 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.053"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
@@ -99,15 +109,15 @@
                     android:src="@drawable/round_edit_note_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.993"
+                    app:layout_constraintHorizontal_bias="0.087"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="1.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--EMAIL-->
-            <com.google.android.material.textfield.TextInputLayout
+            <!--<com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -121,11 +131,7 @@
                     android:background="@color/white"
                     android:hint="Email"
                     android:inputType="textEmailAddress" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="10dp" />
+            </com.google.android.material.textfield.TextInputLayout>-->
 
             <!--PASSWORD-->
 
@@ -140,16 +146,16 @@
                     android:layout_weight="1"
                     android:ems="10"
                     app:startIconDrawable="@drawable/round_lock_person_24"
-                    app:endIconMode="password_toggle"
-                    >
+                    app:endIconMode="password_toggle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:hint="Password"
-                        android:inputType="textPassword" />
+                        android:inputType="none"
+                        android:editable="false"
+                        android:text="User Password Here" /> <!-- Set the initial text if needed -->
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>

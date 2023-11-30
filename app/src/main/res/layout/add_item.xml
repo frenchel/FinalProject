@@ -48,7 +48,7 @@
                     android:id="@+id/userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textPersonName"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,7 +65,7 @@
                     android:id="@+id/userNoAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="numberDecimal"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,7 +82,8 @@
                     android:id="@+id/et_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:editable="false"
+                    android:inputType="none"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,7 +100,8 @@
                     android:id="@+id/et_dueDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:editable="false"
+                    android:inputType="none"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
