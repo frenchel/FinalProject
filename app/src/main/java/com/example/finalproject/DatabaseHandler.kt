@@ -269,5 +269,17 @@ class DatabaseHandler(private val context: Context): SQLiteOpenHelper(context, D
         cursor.close()
         return tableExists
     }
+    fun updatePassword(email: String, newPassword: String): Int {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(KEY_PASSWORD, newPassword)
+        }
+
+        // Update the password for the specified email
+        val success = db.update(TABLE_ACCOUNTS, values, "$KEY_EMAIL=?", arrayOf(email))
+        db.close()
+        return success
+    }
+
 
 }

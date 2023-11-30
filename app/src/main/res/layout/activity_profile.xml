@@ -149,10 +149,7 @@
                     android:inputType="none"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:editable="false"
-                    android:hint="Account Name"
-
-                    />
+                    android:editable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
@@ -183,8 +180,7 @@
                     android:inputType="none"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:editable="false"
-                    android:hint="Registered Email"/>
+                    android:editable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
@@ -256,7 +252,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:inputType="none"
+                        android:inputType="textPassword"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:editable="false"
