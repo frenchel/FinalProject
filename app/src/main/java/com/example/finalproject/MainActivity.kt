@@ -149,10 +149,10 @@ class MainActivity : AppCompatActivity() {
                     userList.add(userData)
                     userAdapter.notifyDataSetChanged()
                     updateTotalAmount()
-                    Toast.makeText(this, "Adding User Information Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Record saved", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 } else {
-                    Toast.makeText(this, "Error Adding User Information", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Error saving record", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 // Show required fields dialog for 2 seconds

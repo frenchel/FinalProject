@@ -45,11 +45,11 @@ class Register : AppCompatActivity() {
                             val success = dbHelper.addAccount(account)
 
                             if (success != -1L) {
-                                Toast.makeText(this, "Account Created Successfully", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(this, Login::class.java)
                                 startActivity(intent)
                             } else {
-                                Toast.makeText(this, "Error Creating Account", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "Error creating account", Toast.LENGTH_SHORT).show()
                             }
                         } else {
                             Toast.makeText(this, "Email already registered", Toast.LENGTH_SHORT).show()

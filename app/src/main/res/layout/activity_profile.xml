@@ -32,9 +32,21 @@
             android:textColor="@color/white"
             android:text="Profile"
             android:textSize="30sp" />
-
-
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_above="@+id/card_view"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="3dp"
+        android:src="@drawable/app_logo" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
@@ -56,7 +68,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/inter_semibold"
                 android:text="Account Details"
                 android:textSize="22sp"/>
@@ -264,7 +276,7 @@
             <!--LOGIN-->
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="70dp" />
+                android:layout_height="40dp" />
 
             <Button
                 android:id="@+id/btnSignOut"
@@ -278,7 +290,7 @@
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="70dp" />
+                android:layout_height="40dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

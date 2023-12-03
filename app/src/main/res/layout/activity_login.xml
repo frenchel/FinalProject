@@ -4,40 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkpurple"
     android:orientation="vertical"
+    android:background="#DFE3F6"
     tools:context=".Login">
 
-    <!--LAYOUT FOR THE WHOLE ACTIVITY-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-
-    <!--LAYOUT FOR UPPER PART (DESIGN)-->
+    <!--LAYOUT FOR THE UPPER PART DESIGN-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_above="@id/card_view"
-        android:gravity="center"
-        android:padding="28dp"
-        android:layout_marginBottom="-89dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="40sp"
-            />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <View
             android:layout_width="wrap_content"
-            android:layout_height="50dp"/>
-    </LinearLayout>
+            android:layout_height="15dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:fontFamily="@font/inter_bold"
+            android:text="Login"
+            android:textColor="@color/pink"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:src="@drawable/app_logo_2"/>
+
+    </LinearLayout>
 
     <!--LOGIN WITH WHITE BACKGROUND-->
     <androidx.cardview.widget.CardView
@@ -45,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/darkpurple"
         app:cardCornerRadius="28dp"
         android:layout_marginBottom="-20dp"
         >
@@ -59,7 +58,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sign in to your account"
-                android:textSize="15sp"
+                android:fontFamily="@font/inter_medium"
+                android:textSize="17sp"
+                android:textColor="@color/white"
                 android:layout_gravity="center"
                 />
 
@@ -72,9 +73,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                app:endIconMode="clear_text">
+                app:hintEnabled="false"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/round_markunread_24">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmail"
+                    android:background="@color/white"
                     android:hint="Email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -90,9 +97,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                app:hintEnabled="false"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:startIconDrawable="@drawable/round_lock_person_24"
                 app:endIconMode="password_toggle">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
+                    android:background="@color/white"
                     android:hint="Password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,9 +138,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="35dp"
-                android:fontFamily="@font/inter_medium"
-                android:text="No account yet? Register Now"
-                android:textColor="@color/darkpurple" />
+                android:fontFamily="@font/inter_bold"
+                android:textSize="17sp"
+                android:text="No account yet? Register now!"
+                android:textColor="@color/white" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

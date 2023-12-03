@@ -132,7 +132,7 @@ class UserAdapter(val c:Context,
 
                 notifyDataSetChanged()
                 updateTotalAmountCallback.invoke()
-                Toast.makeText(c, "User Information is Edited", Toast.LENGTH_SHORT).show()
+                Toast.makeText(c, "Record details edited successfully", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
 
@@ -148,7 +148,7 @@ class UserAdapter(val c:Context,
             userList.remove(userData)
             notifyDataSetChanged()
             updateTotalAmountCallback.invoke()
-            Toast.makeText(c, "Marked as Paid", Toast.LENGTH_SHORT).show()
+            Toast.makeText(c, "Marked as paid", Toast.LENGTH_SHORT).show()
         }
 
         private fun showDeleteConfirmationDialog(userData: UserData) {
@@ -162,7 +162,7 @@ class UserAdapter(val c:Context,
                     userList.remove(userData)
                     notifyDataSetChanged()
                     updateTotalAmountCallback.invoke()
-                    Toast.makeText(c, "Deleted this Information", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(c, "Record deleted", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }
                 .setNegativeButton("No") { dialog, _ ->
@@ -194,7 +194,6 @@ class UserAdapter(val c:Context,
 
         if (isArchiveAdapter) {
             holder.tvStatus.text = "PAID"
-            // You can customize the appearance or perform additional actions for overdue items
         } else if (currentDate.after(dueDate)) {
             holder.tvStatus.text = "OVERDUE"
         } else {
@@ -214,7 +213,7 @@ class UserAdapter(val c:Context,
         val day = calendar.get(java.util.Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(
-            c,  // Use the 'c' parameter as the Context
+            c,
             R.style.datePicker,
             { _, selectedYear, selectedMonth, selectedDay ->
                 val selectedDate = java.util.Calendar.getInstance()

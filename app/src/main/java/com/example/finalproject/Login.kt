@@ -29,11 +29,11 @@ class Login : AppCompatActivity() {
 
                 if (account != null) {
                     dbHelper.setLoggedInUserEmail(account.email)
-                    Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this, "Invalid Email or Password", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Email and Password does not match", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(this, "Email and Password are required", Toast.LENGTH_SHORT).show()

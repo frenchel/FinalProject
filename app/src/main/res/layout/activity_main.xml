@@ -9,7 +9,7 @@
     android:background="#DFE3F6"
     tools:context=".MainActivity">
 
-    <!--HELLO, NAME AND PROFILE PICTURE-->
+    <!--HELLO, NAME, AND PROFILE PICTURE-->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="175dp"
@@ -83,14 +83,15 @@
 
                 <ImageView
                     android:id="@+id/appLogo"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/cute_dog"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/app_logo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.993"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
