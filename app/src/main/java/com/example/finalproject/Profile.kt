@@ -30,6 +30,7 @@ class Profile : AppCompatActivity() {
         toHomeActivity.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
         }
 
         /*NAVIGATION: SIGN OUT*/

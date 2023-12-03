@@ -32,6 +32,7 @@ class Login : AppCompatActivity() {
                     Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.slide_out_right)
                 } else {
                     Toast.makeText(this, "Email and Password does not match", Toast.LENGTH_SHORT).show()
                 }
