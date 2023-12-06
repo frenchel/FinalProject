@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
+import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         /*BUTTON FOR GOING TO ARCHIVE ACTIVITY*/
         val archiveImageView = findViewById<TextView>(R.id.ic_archive)
         archiveImageView.setOnClickListener {
-            val intent = Intent(this@MainActivity, Archive::class.java)
+            val intent = Intent(this, Archive::class.java)
             startActivity(intent)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.slide_out_right)
         }
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity() {
             // Handle the case when no user is logged in
             Toast.makeText(this, "No user logged in", Toast.LENGTH_SHORT).show()
         }
+
 
         userList.addAll(dbHelper.viewNonArchivedTransaction())
 
@@ -156,8 +158,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error saving record", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                // Show required fields dialog for 2 seconds
-                showRequiredFieldsDialog()
+                Toast.makeText(this, "All fields required", Toast.LENGTH_LONG).show()
 
             }
         }
@@ -198,24 +199,5 @@ class MainActivity : AppCompatActivity() {
 
         datePickerDialog.window?.setBackgroundDrawableResource(R.drawable.rounded_corners_background)
         datePickerDialog.show()
-    }
-
-    /*WARNING DIALOG*/
-    private fun showRequiredFieldsDialog() {
-        val inflater = LayoutInflater.from(this)
-        val view = inflater.inflate(R.layout.dialog_fields_required, null)
-
-        val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setView(view)
-
-        val dialog = dialogBuilder.create()
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // Optional: To make corners round
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) // Optional: To remove the title
-
-        dialog.show()
-
-        Handler().postDelayed({
-            dialog.dismiss()
-        }, 1500)
     }
 }
