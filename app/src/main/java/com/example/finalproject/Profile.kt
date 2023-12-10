@@ -101,25 +101,31 @@ class Profile : AppCompatActivity() {
 
             if (passwordRequirements == null) {
                 if (newPassword.isNotEmpty() && newPassword == confirmNewPassword) {
-                    // Update the password in the database
+                    // Check if the new password is different from the current password
                     val loggedInUserEmail = dbHelper.getLoggedInUserEmail()
 
                     if (loggedInUserEmail != null) {
                         val loggedInUser = dbHelper.getAccountByEmail(loggedInUserEmail)
 
                         if (loggedInUser != null) {
-                            // Update the password
-                            loggedInUser.password = newPassword
-                            // Update the password in the database
-                            dbHelper.updatePassword(loggedInUser.email, newPassword)
+                            val currentPassword = loggedInUser.password
 
-                            Toast.makeText(this, "Password changed successfully", Toast.LENGTH_SHORT).show()
-                            dialog.dismiss()
+                            if (newPassword != currentPassword) {
+                                // Update the password
+                                loggedInUser.password = newPassword
+                                // Update the password in the database
+                                dbHelper.updatePassword(loggedInUser.email, newPassword)
 
-                            val intent = Intent(this, Login::class.java)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                            startActivity(intent)
-                            finish()
+                                Toast.makeText(this, "Password changed successfully", Toast.LENGTH_SHORT).show()
+                                dialog.dismiss()
+
+                                val intent = Intent(this, Login::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                Toast.makeText(this, "New password must be different from the current password", Toast.LENGTH_SHORT).show()
+                            }
                         } else {
                             Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show()
                         }
