@@ -188,7 +188,7 @@ class UserAdapter(val c:Context,
         holder.dateBorrowed.text = newList.dateBorrowed
         holder.datePayment.text = newList.datePayment
 
-        val formattedUserMb = formatNumberWithCommas(newList.userMb.toInt())
+        val formattedUserMb = formatNumberWithCommas(newList.userMb.toDouble())
         holder.mbNum.text = formattedUserMb
         // Compare current date with the due date
         val currentDate = Calendar.getInstance().time
@@ -208,9 +208,9 @@ class UserAdapter(val c:Context,
         return  userList.size
     }
 
-    private fun formatNumberWithCommas(number: Int): String {
+    private fun formatNumberWithCommas(number: Double): String {
         val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
-        return numberFormat.format(number.toLong())
+        return numberFormat.format(number)
     }
 
     /*DATE PICKER*/

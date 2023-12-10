@@ -173,14 +173,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateTotalAmount() {
         val totalAmount = userList.sumByDouble { it.userMb.toDoubleOrNull() ?: 0.0 }
-        val formattedTotalAmount = NumberFormat.getCurrencyInstance(Locale.getDefault()).format(totalAmount)
-        val formattedTotalAmountText = formattedTotalAmount.substring(1)
-        totalAmountTextView.text = "₱ $formattedTotalAmountText"
+        val formattedTotalAmount = formatNumberWithCommas(totalAmount.toDouble())
+        totalAmountTextView.text = "₱ $formattedTotalAmount"
     }
 
-    private fun formatNumberWithCommas(number: Int): String {
+    private fun formatNumberWithCommas(number: Double): String {
         val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
-        return numberFormat.format(number.toLong())
+        return numberFormat.format(number)
     }
 
     /*DATE PICKER*/
