@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.icu.text.NumberFormat
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -172,7 +173,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateTotalAmount() {
         val totalAmount = userList.sumByDouble { it.userMb.toDoubleOrNull() ?: 0.0 }
-        totalAmountTextView.text = "₱ ${String.format("%.2f", totalAmount)}"
+        val formattedTotalAmount = NumberFormat.getCurrencyInstance(Locale.getDefault()).format(totalAmount)
+        val formattedTotalAmountText = formattedTotalAmount.substring(1)
+        totalAmountTextView.text = "₱ $formattedTotalAmountText"
+    }
+
+    private fun formatNumberWithCommas(number: Int): String {
+        val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+        return numberFormat.format(number.toLong())
     }
 
     /*DATE PICKER*/

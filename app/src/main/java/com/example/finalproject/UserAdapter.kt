@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.icu.text.NumberFormat
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.view.LayoutInflater
@@ -187,6 +188,8 @@ class UserAdapter(val c:Context,
         holder.dateBorrowed.text = newList.dateBorrowed
         holder.datePayment.text = newList.datePayment
 
+        val formattedUserMb = formatNumberWithCommas(newList.userMb.toInt())
+        holder.mbNum.text = formattedUserMb
         // Compare current date with the due date
         val currentDate = Calendar.getInstance().time
         val dateFormat = SimpleDateFormat("MMM. dd, yyyy", Locale.getDefault())
@@ -203,6 +206,11 @@ class UserAdapter(val c:Context,
 
     override fun getItemCount(): Int {
         return  userList.size
+    }
+
+    private fun formatNumberWithCommas(number: Int): String {
+        val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+        return numberFormat.format(number.toLong())
     }
 
     /*DATE PICKER*/
